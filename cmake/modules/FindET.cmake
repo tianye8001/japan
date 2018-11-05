@@ -6,7 +6,7 @@
 
 # if( DEFINED ENV{CODA} )
   find_library(ET_LIBRARY et
-    PATHS /adaqfs/home/apar/et-12.0/src/libsrc/.Linux-x86_64
+    PATHS /adaqfs/home/apar/et-12.0/src/libsrc/.Linux-x86_64-32
     #         $ENV{CODA}/${arch}/lib
     #         $ENV{CODA}/${CMAKE_SYSTEM_NAME}/lib
     DOC "Event Transport (ET) library"

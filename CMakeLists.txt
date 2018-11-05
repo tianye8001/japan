@@ -116,20 +116,21 @@ find_package(Boost COMPONENTS program_options filesystem system regex REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIR})
 
-# Find the CODA ET libaries
-find_package(ET)
-IF(ET_FOUND)
-  add_definitions(-D__CODA_ET)
-  include_directories(${ET_INCLUDE_DIR})
-  list(APPEND my_evio_headers
-    ${CMAKE_CURRENT_SOURCE_DIR}/evio/include/THaEtClient.h
-    )
-  list(APPEND my_evio_sources
-    ${CMAKE_CURRENT_SOURCE_DIR}/evio/src/THaEtClient.C
-    )
-else(ET_FOUND)
-  SET(ET_LIBRARY "")
-endif(ET_FOUND)
+### < FIXME > Cameron removed ET system so it will compile
+# # Find the CODA ET libaries
+#find_package(ET)
+#IF(ET_FOUND)
+#  add_definitions(-D__CODA_ET)
+#  include_directories(${ET_INCLUDE_DIR})
+#  list(APPEND my_evio_headers
+#    ${CMAKE_CURRENT_SOURCE_DIR}/evio/include/THaEtClient.h
+#    )
+#  list(APPEND my_evio_sources
+#    ${CMAKE_CURRENT_SOURCE_DIR}/evio/src/THaEtClient.C
+#    )
+#else(ET_FOUND)
+#  SET(ET_LIBRARY "")
+#endif(ET_FOUND)
 
 add_definitions(-std=c++11)
 

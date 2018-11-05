@@ -148,8 +148,14 @@ ifeq ($(OSNAME),Linux)
 # CODA may be an environment variable.  Typical examples
 #  CODA = /adaqfs/coda/2.2
 #  CODA = /data7/user/coda/2.2
-  LIBET = $(CODA)/Linux/lib/libet.so
-  ONLIBS = $(LIBET) -lieee -lpthread -ldl -lresolv
+
+## < FIXME > Cameron swapped libet.so to Bob's new ET-bridge capable version
+  LIBETDIR = /adaqfs/home/apar/et-12.0/src/libsrc/.Linux-x86_64-32
+  LIBET = $(LIBETDIR)/libet.so
+## 
+##  LIBET = $(CODA)/Linux/lib/libet.so
+##  ONLIBS = $(LIBET) -lieee -lpthread -ldl -lresolv
+## </ FIXME >
 
   ifdef ONLINE
      CXXFLAGS += -I$(CODA)/common/include
