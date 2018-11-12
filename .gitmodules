@@ -1,0 +1,3 @@
+[submodule "Parity/prminput"]
+	path = Parity/prminput
+	url = git@github.com:JeffersonLab/japan-prminput-prexcrex.git
