@@ -235,6 +235,35 @@ foreach(file ${exefiles})
   install(TARGETS ${filelower} DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 endforeach()
 
+# test targets
+find_package(GTest REQUIRED)
+if(GTest_FOUND)
+  enable_testing()
+  include_directories(${GTEST_INCLUDE_DIR})
+  message(STATUS "Google Test framework enabled")
+  file(GLOB testfiles
+    ${CMAKE_SOURCE_DIR}/Parity/test/*.cc
+    ${CMAKE_SOURCE_DIR}/Analysis/test/*.cc
+    ${CMAKE_SOURCE_DIR}/Tracking/test/*.cc
+    )
+  foreach(file ${testfiles})
+    get_filename_component(filename ${file} NAME_WE)
+    string(TOLOWER ${filename} filelower)
+    add_executable(${filelower} ${file})
+    target_link_libraries(
+      ${filelower}
+      ${ROOT_LIBRARIES} ${MYSQLPP_LIBRARIES} ${Boost_LIBRARIES} QwAnalysis evio ${ET_LIBRARY}
+      ${GTEST_LIBRARIES}
+      )
+    gtest_add_tests(${filelower} "" AUTO)
+    # Once cmake 3.10 hits the ifarm, we can be more dynamic about this:
+    # https://blog.kitware.com/dynamic-google-test-discovery-in-cmake-3-10/
+    #gtest_discover_tests(${filelower})
+  endforeach()
+else()
+  message(STATUS "Google Test framework not found. To enable, install libgtest-dev or similar")
+endif()
+
 # uninstall target
 if(NOT TARGET uninstall)
     configure_file(
